@@ -1,0 +1,61 @@
+{% extends "dashboard.html" %}
+{% block content %}
+<script src="https://cdn.flexmonster.com/flexmonster.js"></script> <div id="pivot"></div>
+<div id="pivot_chart"></div>
+<script>
+
+var pivot = new Flexmonster({
+    container: "#pivot",
+    componentFolder: "https://cdn.flexmonster.com/",
+    height: 600,
+    toolbar: true,
+    report: {}
+});
+var pivot_charts = new Flexmonster({
+    container: "#pivot_charts",
+    componentFolder: "https://cdn.flexmonster.com/",
+    height: 600,
+    toolbar: true,
+    report: {}
+});
+</script>
+<script>
+var pivot = new Flexmonster({
+    container: "#pivot",
+    componentFolder: "https://cdn.flexmonster.com/",
+    height: 600,
+    toolbar: true,
+    report: {
+        "dataSource": {
+            "type": "api",
+            "url": "http://localhost:9204/mongo", // the url where our connector is running
+            "index": "marketing" // specify the collection’s name
+        },
+        "slice": {}
+    }
+});
+"slice": {
+        "rows": [
+            {
+                "uniqueName": "Country"
+            }
+        ],
+        "columns": [
+            {
+                "uniqueName": "[Measures]"
+            }
+        ],
+        "measures": [
+            {
+                "uniqueName": "Leads",
+                "aggregation": "sum"
+            },
+            {
+                "uniqueName": "Opportunities",
+                "aggregation": "sum"
+            }
+        ]
+    }
+
+</script>
+{% endblock %}
